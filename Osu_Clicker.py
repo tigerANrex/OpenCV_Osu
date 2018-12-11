@@ -1,10 +1,21 @@
 import numpy as np
-from PIL import ImageGrab # Windows and MacOS
-# import pyscreenshot as ImageGrab # Linux
 import cv2
 import time
-# import pyautogui
-from directkeys import PressKey, ReleaseKey, R, X
+
+from sys import platform
+
+if platform == "linux" or platform == "linux2":
+    # linux
+    import pyscreenshot as ImageGrab
+    import pyautogui
+# elif platform == "darwin":
+#     # OS X
+#     from PIL import ImageGrab
+elif platform == "win32":
+    # Windows
+    from PIL import ImageGrab
+    from directkeys import PressKey, ReleaseKey, R, X
+
 
 def process_img(image):
     original_image = image
@@ -23,8 +34,8 @@ def main():
     last_time = time.time()
     while True:
         # PressKey(W)
-        # screen =  np.array(ImageGrab.grab(bbox=(378,275,974,692)))    # Aim booster for my laptop
-        screen =  np.array(ImageGrab.grab(bbox=(661,338,1261,759)))    # Aim booster for my PC
+        screen =  np.array(ImageGrab.grab(bbox=(378,275,974,692)))    # Aim booster for my laptop
+        # screen =  np.array(ImageGrab.grab(bbox=(661,338,1261,759)))    # Aim booster for my PC
         #print('Frame took {} seconds'.format(time.time()-last_time))
         last_time = time.time()
         new_screen = process_img(screen)
